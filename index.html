@@ -267,7 +267,14 @@ input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(74,1
 }
 </style>
 <style id="pub-hide">
-#lock,#tb-left,#tb-right,#tb-lock,#nb-web,#nb-config,.edit-only,#sidebar{display:none!important}
+/* Modo público: ocultar todo desde frame 0 */
+body.editing .edit-only{display:none!important}
+body.editing .edit-only.btn{display:none!important}
+body.editing .edit-only.card{display:none!important}
+body.editing .edit-only.nb{display:none!important}
+#lock,#tb-left,#tb-right,#tb-lock,#nb-web,#nb-config,#sidebar{display:none!important}
+/* Ocultar todas las secciones excepto clasificaciones */
+.sec{display:none!important}
 </style>
 </head>
 <body class="editing">
@@ -9038,6 +9045,8 @@ document.addEventListener("DOMContentLoaded", function(){
   renderAll();
   setSec("clasificaciones");
   renderJList();
+  // Activar sección correcta y eliminar el bloqueo del CSS pub-hide
+  var ph=document.getElementById("pub-hide"); if(ph) ph.parentNode.removeChild(ph);
 });
 </script>
 
