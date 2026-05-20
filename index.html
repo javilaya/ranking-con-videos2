@@ -266,6 +266,9 @@ input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(74,1
   #menu-cards > div{padding:14px!important}
 }
 </style>
+<style id="pub-hide">
+#lock,#tb-left,#tb-right,#tb-lock,#nb-web,#nb-config,.edit-only,#sidebar{display:none!important}
+</style>
 </head>
 <body class="editing">
 
@@ -7943,14 +7946,13 @@ function renderTorneoResults(tid, el){
       if(ronda.id==='p1'||ronda.id==='p2'){
         const catLabel=cat==='elite'?'Élite':'Primera';
         const modLabel=m==='mov'?'Mov':'Par';
-        const vidCatStr=`${catLabel} ${modLabel==='Mov'?'Mov':'Par'}`;
-        // Buscar en todos los años del torneo
-        const anyos=S.videos&&S.videos[tid]?Object.keys(S.videos[tid]):[];
+        // Buscar SOLO en el año del torneo
+        const anyo=t.anyo||'';
         let finalUrl='';
-        for(const anyo of anyos){
+        if(S.videos&&S.videos[tid]&&anyo){
           const vids=(S.videos[tid][anyo]||[]);
           const v=vids.find(v=>v.url&&v.ronda&&v.ronda.toLowerCase().includes('final')&&v.cat&&v.cat.toLowerCase().includes(catLabel.toLowerCase())&&v.cat.toLowerCase().includes(modLabel.toLowerCase()));
-          if(v){finalUrl=v.url;break;}
+          if(v) finalUrl=v.url;
         }
         if(finalUrl){
           videoBtn=`<a href="${finalUrl}" target="_blank" style="display:inline-flex;align-items:center;gap:4px;margin-left:6px;padding:2px 8px;background:rgba(232,25,44,.15);border:1px solid rgba(232,25,44,.4);border-radius:5px;font-size:.75rem;color:#e8192c;text-decoration:none;vertical-align:middle" title="Ver final">▶ Final</a>`;
