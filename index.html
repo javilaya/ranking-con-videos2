@@ -267,14 +267,8 @@ input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(74,1
 }
 </style>
 <style id="pub-hide">
-/* Modo público: ocultar todo desde frame 0 */
-body.editing .edit-only{display:none!important}
-body.editing .edit-only.btn{display:none!important}
-body.editing .edit-only.card{display:none!important}
-body.editing .edit-only.nb{display:none!important}
-#lock,#tb-left,#tb-right,#tb-lock,#nb-web,#nb-config,#sidebar{display:none!important}
-/* Ocultar todas las secciones excepto clasificaciones */
-.sec{display:none!important}
+/* Modo público: ocultar cuerpo entero hasta que JS esté listo */
+body{visibility:hidden!important}
 </style>
 </head>
 <body class="editing">
@@ -8660,7 +8654,7 @@ function renderVideosFlat(){
           ${thumb?`<img src="${thumb}" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block" onerror="this.style.display='none'">`:`<div style="width:100%;aspect-ratio:16/9;background:rgba(232,25,44,.1);display:flex;align-items:center;justify-content:center;font-size:2rem">▶️</div>`}
           <div style="padding:8px 10px">
             <div style="font-weight:700;font-size:.78rem;color:var(--tx);line-height:1.3">${v.ronda} · ${v.cat}</div>
-            ${v.jugadores?`<div style="font-size:.7rem;color:var(--tx3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${v.jugadores}</div>`:''}
+            ${v.jugadores?`<div style="font-size:.7rem;color:rgba(255,255,255,.8);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${v.jugadores}</div>`:''}
             ${v.autor?`<div style="font-size:.65rem;color:var(--tx3);margin-top:2px">📹 ${v.autor}</div>`:''}
           </div>
         </a>`;
@@ -9045,8 +9039,9 @@ document.addEventListener("DOMContentLoaded", function(){
   renderAll();
   setSec("clasificaciones");
   renderJList();
-  // Activar sección correcta y eliminar el bloqueo del CSS pub-hide
+  // Mostrar página (quitar pub-hide)
   var ph=document.getElementById("pub-hide"); if(ph) ph.parentNode.removeChild(ph);
+  document.body.style.visibility='';
 });
 </script>
 
